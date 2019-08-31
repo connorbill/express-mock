@@ -3,7 +3,7 @@ var router = express.Router();
 var Mock = require('mockjs');
 var Random = Mock.Random;
 
-router.get('/shop', function(req, res, next) {
+router.get('/home/shop', function(req, res, next) {
   var data = Mock.mock({
     'list|2': [
       {
@@ -22,7 +22,6 @@ router.get('/shop', function(req, res, next) {
   });
 
   res.send({
-    success: 1,
     data: data.list,
     code: '10000',
     msg: '操作成功'
@@ -33,7 +32,7 @@ router.get('/shop', function(req, res, next) {
 //   res.json({'art': 'art'})
 // })
 
-router.get("/home/profile",function (req,res) {
+router.get("/home/info",function (req,res) {
   console.log(req.body);
   //调用mock方法模拟数据
   var data = Mock.mock({
@@ -46,7 +45,6 @@ router.get("/home/profile",function (req,res) {
   );
 
   res.send({
-    success: 1,
     data: data,
     code: '10000',
     msg: '操作成功'
@@ -66,7 +64,6 @@ router.get("/home/books",function (req,res) {
       }
   );
   res.send({
-    success: 1,
     data: data,
     code: '10000',
     msg: '操作成功'

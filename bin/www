@@ -102,4 +102,5 @@ function onListening() {
   debug('Listening on ' + bind);
 
   console.log(" the open browser address is " + '\033[40;32m http://' + IPAdress + ':' + addr.port)
+  console.log(" or  open browser address is " + '\033[40;32m http://localhost' + ':' + addr.port)
 }
