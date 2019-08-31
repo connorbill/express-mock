@@ -8,6 +8,19 @@ var app = require('../app');
 var debug = require('debug')('mockserver:server');
 var http = require('http');
 
+var interfaces = require('os').networkInterfaces(); // 在开发环境中获取局域网中的本机iP地址
+
+var IPAdress = '';
+for(var devName in interfaces){  
+  var iface = interfaces[devName];  
+  for(var i=0;i<iface.length;i++){  
+        var alias = iface[i];  
+        if(alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal){  
+              IPAdress = alias.address;  
+        }  
+  }  
+} 
+// console.log(IPAdress);
 /**
  * Get port from environment and store in Express.
  */
@@ -87,4 +100,6 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+
+  console.log(" the open browser address is " + '\033[40;32m http://' + IPAdress + ':' + addr.port)
 }

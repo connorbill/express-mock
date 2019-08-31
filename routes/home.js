@@ -22,11 +22,10 @@ router.get('/shop', function(req, res, next) {
   });
 
   res.send({
-    meta: {
-      message: 'success'
-    },
-    status: true,
-    data: data.list
+    success: 1,
+    data: data.list,
+    code: '10000',
+    msg: '操作成功'
   });
 });
 
@@ -45,7 +44,13 @@ router.get("/home/profile",function (req,res) {
           }]
       }
   );
-  return res.json(data);
+
+  res.send({
+    success: 1,
+    data: data,
+    code: '10000',
+    msg: '操作成功'
+  });
 })
 
 
@@ -60,7 +65,12 @@ router.get("/home/books",function (req,res) {
           }]
       }
   );
-  return res.json(data);
+  res.send({
+    success: 1,
+    data: data,
+    code: '10000',
+    msg: '操作成功'
+  });
 })
 
 
