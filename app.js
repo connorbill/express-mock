@@ -4,8 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var router = express.Router();
+const mysql = require('mysql');
 
-var indexRouter = require('./routes/index');
+const fileUpload = require('express-fileupload');
+const bodyParser = require('body-parser');
+var {indexRouter} = require('./routes/index');
 var usersRouter = require('./routes/users');
 var homeRouter = require('./routes/home');
 
@@ -16,6 +19,24 @@ app.all('*', function(req, res, next) {
     next();
 });
 
+const {getHomePage} = require('./routes/index');
+const {addPlayerPage, addPlayer, deletePlayer, editPlayer, editPlayerPage} = require('./routes/player');
+
+
+const db = mysql.createConnection ({
+  host: 'localhost',
+  user: 'root',
+  password: '12345678',
+  database: 'socka'
+});
+// connect to database
+db.connect((err) => {
+  if (err) {
+      throw err;
+  }
+  console.log('Connected to database');
+});
+global.db = db;
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -26,9 +47,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// app.set('view engine', 'ejs'); // configure template engine
+// app.use(bodyParser.json()); // parse form data client
+// app.use(fileUpload()); // configure fileupload
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+// app.get('/', getHomePage);
+// app.get('/add', addPlayerPage);
+// app.get('/edit/:id', editPlayerPage);
+// app.get('/delete/:id', deletePlayer);
+// app.post('/add', addPlayer);
+// app.post('/edit/:id', editPlayer);
 
 // 接口部分
 app.use("/api", homeRouter)
