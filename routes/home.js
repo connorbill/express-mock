@@ -3,7 +3,9 @@ var router = express.Router();
 var Mock = require('mockjs');
 var Random = Mock.Random;
 
-router.get('/home/shop', function(req, res, next) {
+
+
+  router.get('/home/shop', function(req, res, next) {
   var data = Mock.mock({
     'list|2': [
       {
@@ -16,7 +18,7 @@ router.get('/home/shop', function(req, res, next) {
         create_time: Random.datetime(),
         finish_time: Random.datetime(),
         'contact|4': 'abc'
-        
+
       }
     ]
   });
@@ -28,9 +30,6 @@ router.get('/home/shop', function(req, res, next) {
   });
 });
 
-// router.get('/article/list', function (req, res) {
-//   res.json({'art': 'art'})
-// })
 
 router.get("/home/info",function (req,res) {
   console.log(req.body);
