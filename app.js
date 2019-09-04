@@ -4,8 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var router = express.Router();
-var mysql = require('mysql');
-var dbConf = require('./conf/db');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var homeRouter = require('./routes/home');
@@ -29,9 +27,6 @@ app.all('*', function(req, res, next) {
 //
 // connection.connect();
 
-
-
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
@@ -43,7 +38,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
 
 // 接口部分
 app.use("/api", homeRouter)
